@@ -31,6 +31,7 @@ public class RegisterActivity extends Activity {
 		addRegisterShow();//注册方法
 		Bmob.initialize(this, "16e74751f4ede2e59f1fcae1e508cc3b");
 	}
+
 	private void addRegisterShow() {
 		register_ok.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -53,6 +54,7 @@ public class RegisterActivity extends Activity {
 			}
 		});
 	}
+
 	private void addControl() {
 		register_user = (TextView) findViewById(R.id.id_register_username);
 		register_password = (TextView) findViewById(R.id.id_register_userpassword);
