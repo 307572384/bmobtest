@@ -1,6 +1,7 @@
 package com.beta.bmobtest;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -40,10 +41,13 @@ public class RegisterActivity extends Activity {
 				p2.setUsername(register_user.getText().toString());
 				p2.setPassword(register_password.getText().toString());
 				//插入方法
-				p2.save(new SaveListener<BmobUser>() {
+				p2.signUp(new SaveListener<BmobUser>() {
 					@Override
 					public void done(BmobUser bmobUser, BmobException e) {
 						if (e == null) {
+							//判断是否注册成功成功则跳转到登陆的页面
+							Intent intent_register = new Intent(RegisterActivity.this,MainActivity.class);
+							startActivity(intent_register);
 							Toast.makeText(RegisterActivity.this, "添加数据成功，返回objectId为：" + p2.getObjectId(), Toast.LENGTH_SHORT).show();
 						} else {
 							Toast.makeText(RegisterActivity.this, "用户名或者密码不能为空", Toast.LENGTH_SHORT).show();
