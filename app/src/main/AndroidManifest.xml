@@ -23,7 +23,7 @@
             android:name="cn.bmob.v3.util.BmobContentProvider"
             android:authorities="com.beta.bmobtest.BmobContentProvider">
         </provider>
-        <activity android:name="com.beta.bmobtest.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

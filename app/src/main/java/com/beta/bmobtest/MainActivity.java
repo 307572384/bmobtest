@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		Bmob.initialize(this, "16e74751f4ede2e59f1fcae1e508cc3b");
+		Bmob.initialize(this, "你自己的appid");
 
 
 		addControl();
