@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">bmobtest</string>
+    <string name="countdown">获取验证码</string>
+    <string name="permission_send_sms_phone">请允许发送短信</string>
+    <string name="permission_cus_title">亲爱的上帝</string>
+    <string name="permission_cus_msg">请开启这个权限否则将无法收到验证短信</string>
+    <string name="permission_on_close">拒绝</string>
+    <string name="permission_completed">权限已申请</string>
+    <string name="permission_read_phone_state">允许读取手机状态</string>
+    <string name="have_click">已经点击到了</string>
+    <string name="smssuccess">发送验证码成功</string>
+    <string name="failed">发送验证码失败请检查网络状况</string>
+    <string name="user_success">短信注册成功</string>
+    <string name="user_failed">注册失败请检查验证码是否正确</string>
+    <string name="userpassword_failed">密码在以字母开头6-18位之前只能包含字母数字和下划线</string>
+    <string name="user_or_password_empty">用户名或密码不能为空</string>
+    <string name="valiation_empty">请输入验证码</string>
+    <string name="phone_failed">请输入正确的手机号码</string>
 </resources>

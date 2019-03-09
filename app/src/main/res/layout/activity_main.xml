@@ -16,17 +16,27 @@
         android:layout_height="wrap_content"
 
         android:text="登录" />
+
     <EditText
         android:id="@+id/id_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="username"/>
+        android:hint="手机号"
+        android:inputType="phone" />
 
     <EditText
         android:id="@+id/id_userpassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="password" />
+        android:hint="password"
+        android:inputType="textPassword" />
+
+    <CheckBox
+        android:id="@+id/remember"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="是否记住用户名和密码" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
