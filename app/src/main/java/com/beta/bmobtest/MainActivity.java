@@ -25,12 +25,13 @@ public class MainActivity extends AppCompatActivity {
 	private CheckBox                 rememberPass;
 	private SharedPreferences        pref;
 	private SharedPreferences.Editor editor;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		Bmob.initialize(this, "16e74751f4ede2e59f1fcae1e508cc3b");
+		Bmob.initialize(this, "你自己的appid");
 
 
 		addControl();
@@ -53,12 +54,12 @@ public class MainActivity extends AppCompatActivity {
 
 				String lgU = lgUser.getText().toString().trim();
 				String lgp = lgPassword.getText().toString().trim();
-				editor=pref.edit();
-				if(rememberPass.isChecked()){
-					editor.putBoolean("remember_password",true);
-					editor.putString("account",lgU);
-					editor.putString("password",lgp);
-				}else {
+				editor = pref.edit();
+				if (rememberPass.isChecked()) {
+					editor.putBoolean("remember_password", true);
+					editor.putString("account", lgU);
+					editor.putString("password", lgp);
+				} else {
 					editor.clear();
 				}
 				editor.apply();
@@ -89,17 +90,17 @@ public class MainActivity extends AppCompatActivity {
 	}
 
 	private void addControl() {
-		pref= PreferenceManager.getDefaultSharedPreferences(this);
-		rememberPass=(CheckBox)findViewById(R.id.remember);
+		pref = PreferenceManager.getDefaultSharedPreferences(this);
+		rememberPass = (CheckBox) findViewById(R.id.remember);
 		lgUser = (TextView) findViewById(R.id.id_username);
 		lgPassword = (TextView) findViewById(R.id.id_userpassword);
 		btn_ok = (Button) findViewById(R.id.id_ok);
 		btn_rg = (Button) findViewById(R.id.id_register);
-		boolean isRemenber=pref.getBoolean("remember_password",false);
-		if(isRemenber){
+		boolean isRemenber = pref.getBoolean("remember_password", false);
+		if (isRemenber) {
 			//将账号和密码都设置到文本中
-			String account=pref.getString("account","");
-			String password=pref.getString("password","");
+			String account = pref.getString("account", "");
+			String password = pref.getString("password", "");
 			lgUser.setText(account);
 			lgPassword.setText(password);
 			rememberPass.setChecked(true);

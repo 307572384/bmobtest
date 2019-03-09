@@ -47,6 +47,6 @@ dependencies {
     //bmob-sms ：Bmob单独为短信服务提供的包
 
     //如果你想应用能够兼容Android6.0，请添加此依赖(org.apache.http.legacy.jar)
-    implementation'cn.bmob.android:http-legacy:1.0'
+    implementation 'cn.bmob.android:http-legacy:1.0'
     implementation 'me.weyye.hipermission:library:1.0.7'
 }

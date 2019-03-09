@@ -20,8 +20,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobSMS;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.QueryListener;
@@ -34,19 +34,8 @@ import me.weyye.hipermission.PermissionItem;
  * Created by Kevein on 2019/3/1.8:03
  */
 
-public class RegisterActivity extends Activity  implements View.OnClickListener{
+public class RegisterActivity extends Activity implements View.OnClickListener {
 	public static final String TAG = "RegisterActivity";
-	private Intent   mIntent;
-	private Context  mContext;
-	private EditText register_phone;
-	private EditText register_password;
-	private Button   register_ok, register_countdown;
-	private EditText register_ValiDation;//输入验证码
-
-	private void showToast(String text) {//简化Toast
-		Toast.makeText(mContext, text, Toast.LENGTH_SHORT).show();
-	}
-
 	//倒计时广播
 	private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
 		@Override
@@ -68,6 +57,13 @@ public class RegisterActivity extends Activity  implements View.OnClickListener{
 			}
 		}
 	};
+	private Intent   mIntent;
+	private Context  mContext;
+	private EditText register_phone;
+	private EditText register_password;
+	private Button   register_ok, register_countdown;
+	private EditText register_ValiDation;//输入验证码
+
 	// 注册广播
 	private static IntentFilter updateIntentFilter() {
 		final IntentFilter intentFilter = new IntentFilter();
@@ -76,13 +72,17 @@ public class RegisterActivity extends Activity  implements View.OnClickListener{
 		return intentFilter;
 	}
 
+	private void showToast(String text) {//简化Toast
+		Toast.makeText(mContext, text, Toast.LENGTH_SHORT).show();
+	}
+
 	@Override
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.register_layout);
 		mContext = this;
 		addControl();//加载控件
-		Bmob.initialize(this, "16e74751f4ede2e59f1fcae1e508cc3b");
+		Bmob.initialize(this, "你自己的appid");
 	}
 
 	@Override
@@ -177,9 +177,9 @@ public class RegisterActivity extends Activity  implements View.OnClickListener{
 
 	@Override
 	public void onClick(View view) {
-	    String mobile = register_phone.getText().toString().trim();
-//		String password = register_password.getText().toString().trim();
-			switch (view.getId()) {
+		String mobile = register_phone.getText().toString().trim();
+		//		String password = register_password.getText().toString().trim();
+		switch (view.getId()) {
 
 			case R.id.btn_countdown: {//发送短信验证
 				mIntent = new Intent(mContext, RegisterCodeTimerService.class);//接收倒计时广播
@@ -208,29 +208,25 @@ public class RegisterActivity extends Activity  implements View.OnClickListener{
 				//判断密码
 				boolean pwd = PasswordJudge(password);
 
-				if (mobile.isEmpty()||password.isEmpty()) {
+				if (mobile.isEmpty() || password.isEmpty()) {
 					showToast(getString(R.string.user_or_password_empty));
 					return;
-				}
-				else if(!phone)
-				{
+				} else if (!phone) {
 					showToast(getString(R.string.phone_failed));
 					return;
-				}
-				else if (!pwd) {
+				} else if (!pwd) {
 					showToast(getString(R.string.userpassword_failed));
 					return;
-				} else if(TextUtils.isEmpty(valiation)){
+				} else if (TextUtils.isEmpty(valiation)) {
 					showToast(getString(R.string.valiation_empty));
 					return;
 
-				}else
-				{
+				} else {
 					//Bmob注册验证方法
 					User p2 = new User();
 					p2.setMobilePhoneNumber(mobile);
 					p2.setPassword(password);
-					p2.signOrLogin(valiation,new SaveListener<BmobUser>() {//valiation关于获取到验证码
+					p2.signOrLogin(valiation, new SaveListener<BmobUser>() {//valiation关于获取到验证码
 						@Override
 						public void done(BmobUser bmobUser, BmobException e) {
 							if (e == null) {
@@ -239,7 +235,7 @@ public class RegisterActivity extends Activity  implements View.OnClickListener{
 								startActivity(intent_register);
 								showToast(getString(R.string.user_success));
 							} else {
-								showToast(getString(R.string.user_failed)+e.getErrorCode()+e.getMessage());
+								showToast(getString(R.string.user_failed) + e.getErrorCode() + e.getMessage());
 							}
 						}
 					});

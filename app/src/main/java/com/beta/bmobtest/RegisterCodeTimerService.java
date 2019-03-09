@@ -8,7 +8,6 @@ import android.os.IBinder;
 
 /**
  * 注册验证码计时服务
- *
  */
 public class RegisterCodeTimerService extends Service {
 	public static final String IN_RUNNING  = "com.beta.bmobtest.IN_RUNNING";
