@@ -30,6 +30,7 @@ import top.zibin.luban.OnCompressListener;
 
 /**
  * Created by Kevein on 2019/3/1.8:39
+ * Luban压缩后上传图片后Glide显示
  */
 
 public class Success extends Activity {
