@@ -1,7 +1,7 @@
 package com.beta.bmobtest.bean;
 import cn.bmob.v3.datatype.*;
 import cn.bmob.v3.*;
-
+//上传图片数据表
 public class UploadCtEntity extends BmobObject
 {
 		private BmobFile picture;//图片

@@ -3,7 +3,6 @@ package com.beta.bmobtest;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -109,7 +108,7 @@ public class Success extends Activity {
 							if (p1 == null) {
 								Toast.makeText(Success.this, "上传成功", Toast.LENGTH_SHORT).show();
 								tw1.setText(bmobFile.getFileUrl());
-								Glide.with(Success.this).load(bmobFile.getFileUrl()).transform(new yu(Success.this, 16)).into(img);
+								Glide.with(Success.this).load(bmobFile.getFileUrl()).transform(new BitmapTran(Success.this, 16)).into(img);
 
 							} else {
 								Toast.makeText(Success.this, p1.toString(), Toast.LENGTH_SHORT).show();

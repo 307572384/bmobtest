@@ -5,16 +5,14 @@ import android.content.res.*;
 import android.graphics.*;
 import com.bumptech.glide.load.engine.bitmap_recycle.*;
 
-import org.jetbrains.annotations.Contract;
-
-public class yu extends BitmapTransformation {
+public class BitmapTran extends BitmapTransformation {
     private static float radius = 0f;
 
-    public yu(Context context) {
+    public BitmapTran(Context context) {
         this(context, 4);
     }
 
-    public yu(Context context, int dp) {
+    public BitmapTran(Context context, int dp) {
         super(context);
         this.radius = Resources.getSystem().getDisplayMetrics().density * dp;
     }
@@ -25,7 +23,6 @@ public class yu extends BitmapTransformation {
         return roundCrop(pool, toTransform);
     }
 
-    @Contract("_, null -> null")
     private Bitmap roundCrop(BitmapPool pool, Bitmap source) {
         if (source == null)
             return null;
