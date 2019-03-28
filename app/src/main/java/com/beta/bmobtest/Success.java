@@ -45,7 +45,7 @@ public class Success extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.success);
-		Bmob.initialize(this, "16e74751f4ede2e59f1fcae1e508cc3b");//这里替换成你的
+		Bmob.initialize(this, "");//这里替换成你的
 		bt1 = (Button) findViewById(R.id.mainButton1);
 		bt2 = (Button) findViewById(R.id.mainButton2);
 		img = (ImageView) findViewById(R.id.mainImageView1);
