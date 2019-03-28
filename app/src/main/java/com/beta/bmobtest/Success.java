@@ -155,7 +155,7 @@ public class Success extends Activity {
 
 	private void InitLuBan(File file) {
 		Luban.with(this)
-				.load(file)
+				.load(file)//加载图片地址
 				.ignoreBy(100)//默认100KB以下文件不压缩
 				.setTargetDir(getPath())//设置保存的本地文件地址
 				.setCompressListener(new OnCompressListener() {
@@ -167,16 +167,16 @@ public class Success extends Activity {
 					@Override
 					public void onSuccess(File file) {
 						tw1.setText(picturePath);
-						Glide.with(Success.this).
+						Glide.with(Success.this).//Glide加载获取成功后压缩的图片
 								load(file)
 								.into(img);
-						mFile = file;
+						mFile = file;//将压缩后的图片地址转换成公共类
 
 					}
 
 					@Override
 					public void onError(Throwable e) {
 					}
-				}).launch();
+				}).launch();//启动鲁班
 	}
 }
