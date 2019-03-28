@@ -143,6 +143,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 		List<PermissionItem> permissions = new ArrayList<PermissionItem>();
 		permissions.add(new PermissionItem(Manifest.permission.SEND_SMS, getString(R.string.permission_send_sms_phone), R.drawable.permission_ic_sms));
 		permissions.add(new PermissionItem(Manifest.permission.READ_PHONE_STATE, getString(R.string.permission_read_phone_state), R.drawable.permission_ic_phone));
+		permissions.add(new PermissionItem(Manifest.permission.CAMERA,"允许打开相机",R.drawable.permission_ic_camera));
 		HiPermission.create(mContext)
 				.title(getString(R.string.permission_cus_title))
 				.permissions(permissions)
