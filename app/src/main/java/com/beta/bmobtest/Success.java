@@ -139,29 +139,41 @@ public class Success extends Activity implements View.OnClickListener {
 							public void onSuccess(List<BmobFile> files, List<String> urls) {
 //								if (urls.size() == arrString.length) {//如果数量相等，则代表文件全部上传完成
 									//do something
-									final List<String> up_url = new ArrayList<>(urls);//外部存储图片url
-									final List<BmobFile> up_image = new ArrayList<>(files);//外部存储图片
-									up_url.addAll(urls);
-									up_image.addAll(files);
-									//									System.out.println(up_url);
-									Set<String> ts = new HashSet<String>();//使用set方法防止List中有多个数组
-									ts.addAll(up_url);
-									tsx = ts;
-									List<String> list2 = new ArrayList<String>();
-									list2.addAll(tsx);
-									up_urlx = list2;
-									int xc = up_urlx.size();
-									System.out.println("上传成功的大小" + xc);
+//									final List<String> up_url = new ArrayList<>(urls);//外部存储图片url
+//									final List<BmobFile> up_image = new ArrayList<>(files);//外部存储图片
+//									up_url.addAll(urls);
+//									up_image.addAll(files);
+//									//									System.out.println(up_url);
+//									Set<String> ts = new HashSet<String>();//使用set方法防止List中有多个数组
+//									ts.addAll(up_url);
+//									tsx = ts;
+//									List<String> list2 = new ArrayList<String>();
+//									list2.addAll(tsx);
+//									up_urlx = list2;
+//									int xc = up_urlx.size();
+//									System.out.println("上传成功的大小" + xc++);
 									//9图片批量上传
-									for(int i=0;i<urls.size();i++)
-									{
+//									for(int i=0;i<2;i++)
+//									{
 										System.out.println("这是添加数据进表以后的大小"+urls.size());
 										 UploadCtEntity uploadCtEntity = new UploadCtEntity();
 										uploadCtEntity.setZqda("测试");
-										uploadCtEntity.setImage_url(up_urlx);
+
+//										//去除重复的图片url在数组中
+//										Set<String> set_url = new HashSet<>();
+//										final List<String> list_url = new ArrayList<>();
+//										for (int y = 0; y < 9; y++) {
+//											set_url.add(String.valueOf(up_urlx));//将压缩好的九张图片封装进set
+//
+//										}
+//										Iterator<String> it = set_url.iterator();
+//										while (it.hasNext()) {
+//											list_url.add(it.next());//遍历如果有重复就删掉没有重复就将图片封装进List
+//										}
+										uploadCtEntity.setImage_url(urls);
 										list.add(uploadCtEntity);
 										BmobInsert(list);
-									}
+//									}
 //								}
 
 								//									for (String listf:urls)
