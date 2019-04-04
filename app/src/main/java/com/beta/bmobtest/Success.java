@@ -152,7 +152,7 @@ public class Success extends Activity implements View.OnClickListener {
 									up_url.addAll(urls);
 									up_image.addAll(files);
 //									System.out.println(up_url);
-									 Set<String> ts = new HashSet<String>();
+									 Set<String> ts = new HashSet<String>();//使用set方法防止List中有多个数组
 									ts.addAll(up_url);
 									tsx = ts;
 									List<String> list2 = new ArrayList<String> ();
