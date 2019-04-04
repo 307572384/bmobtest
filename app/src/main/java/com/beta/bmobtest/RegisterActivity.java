@@ -82,7 +82,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 		setContentView(R.layout.register_layout);
 		mContext = this;
 		addControl();//加载控件
-		Bmob.initialize(this, "你自己的appid");
+		Bmob.initialize(this, "16e74751f4ede2e59f1fcae1e508cc3b");
 	}
 
 	@Override
@@ -224,7 +224,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener {
 
 				} else {
 					//Bmob注册验证方法
-					User p2 = new User();
+					Usertest p2 = new Usertest();
 					p2.setMobilePhoneNumber(mobile);
 					p2.setPassword(password);
 					p2.signOrLogin(valiation, new SaveListener<BmobUser>() {//valiation关于获取到验证码

@@ -1,5 +1,7 @@
 package com.beta.bmobtest;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,12 +13,14 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.antfortune.freeline.FreelineCore;
+
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 	private Person                   p2;
 	private TextView                 lgUser;
 	private TextView                 lgPassword;
@@ -31,8 +35,7 @@ public class MainActivity extends AppCompatActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		Bmob.initialize(this, "");//替换成你自己的
-
+		Bmob.initialize(this, "16e74751f4ede2e59f1fcae1e508cc3b");//替换成你自己的
 
 		addControl();
 		addLogin();
