@@ -7,11 +7,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.beta.bmobtest.adapter.ImageAdapter;
@@ -21,13 +18,9 @@ import com.donkingliang.imageselector.utils.ImageSelectorUtils;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import cn.bmob.v3.Bmob;
@@ -48,17 +41,19 @@ import top.zibin.luban.OnCompressListener;
 
 public class Success extends Activity implements View.OnClickListener {
 	private static final int REQUEST_CODE = 0x00000011;
+	Set<String> tsx = new HashSet<String>();
 	private Button bt1, bt2;//1添加图片，2上传图片
-	private String    picturePath;//图片路径
-	private File      mFile;//用于存储鲁班压缩完返回的图片地址
-	private Button    mainButton1;
-	private Button    mainButton2;
+	private String picturePath;//图片路径
+	private File   mFile;//用于存储鲁班压缩完返回的图片地址
+	private Button mainButton1;
+	private Button mainButton2;
 	private Context mContext = this;
 	private ImageAdapter mAdapter;
 	private RecyclerView rvImage;
-	Set<String> tsx = new HashSet<String>();
-	private List           up_urlx   =new ArrayList<>();//外部存储图片url
+	private List<String>   up_urlx  = new ArrayList<>();//外部存储图片url
+	private List<String>   up_urlc  = new ArrayList<>();//外部存储图片url
 	private List<BmobFile> up_image = new ArrayList<>();//外部存储图片
+	List<BmobObject> list = new ArrayList<BmobObject>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -91,7 +86,7 @@ public class Success extends Activity implements View.OnClickListener {
 			 * 只有本次调用相机拍出来的照片，返回时才为true。
 			 * 当为true时，图片返回的结果有且只有一张图片。
 			 */
-//			boolean isCameraImage = data.getBooleanExtra(ImageSelector.IS_CAMERA_IMAGE, false);
+			//			boolean isCameraImage = data.getBooleanExtra(ImageSelector.IS_CAMERA_IMAGE, false);
 
 			y_Luban(images);
 		}
@@ -112,7 +107,6 @@ public class Success extends Activity implements View.OnClickListener {
 		final ArrayList<String> newList = new ArrayList<>();//压缩后的图片路径
 		Luban.with(mContext)
 				.load(images)
-				.setTargetDir(getPath())
 				.ignoreBy(100)
 				.setCompressListener(new OnCompressListener() {
 					@Override
@@ -121,66 +115,76 @@ public class Success extends Activity implements View.OnClickListener {
 
 					@Override
 					public void onSuccess(final File file) {
-//						mAdapter.refresh(images);
+						//						mAdapter.refresh(images);
 						final ArrayList<BmobFile> bmobFiles = new ArrayList<BmobFile>();
-//						newList.add(file.getPath());//将获取到的压缩图片地址放入newList中
-//						final String[] arrString = newList.toArray(new String[newList.size()]);
-//						List list = new ArrayList();
+						//						newList.add(file.getPath());//将获取到的压缩图片地址放入newList中
+						//						final String[] arrString = newList.toArray(new String[newList.size()]);
+						//						List list = new ArrayList();
 						Set<String> set = new HashSet<>();
 						final List<String> list1 = new ArrayList<>();
-						for(int i=0;i<9;i++)
-						{
+						for (int i = 0; i < 9; i++) {
 							set.add(file.getPath());//将压缩好的九张图片封装进set
 
 						}
 						Iterator<String> it = set.iterator();
-						while(it.hasNext())
-						{
+						while (it.hasNext()) {
 							list1.add(it.next());//遍历如果有重复就删掉没有重复就将图片封装进List
 						}
-//						UploadCtEntity uploadCtEntity = new UploadCtEntity();
+						//						UploadCtEntity uploadCtEntity = new UploadCtEntity();
 
-//						uploadCtEntity.setZqda("测试");
+						//						uploadCtEntity.setZqda("测试");
 						final String[] arrString = list1.toArray(new String[list1.size()]);
 						BmobFile.uploadBatch(arrString, new UploadBatchListener() {
 							@Override
 							public void onSuccess(List<BmobFile> files, List<String> urls) {
-								if(urls.size()==arrString.length){//如果数量相等，则代表文件全部上传完成
+//								if (urls.size() == arrString.length) {//如果数量相等，则代表文件全部上传完成
 									//do something
-									final List<String>           up_url   = new ArrayList<>(urls);//外部存储图片url
-									final List<BmobFile> up_image =  new ArrayList<>(files);//外部存储图片
+									final List<String> up_url = new ArrayList<>(urls);//外部存储图片url
+									final List<BmobFile> up_image = new ArrayList<>(files);//外部存储图片
 									up_url.addAll(urls);
 									up_image.addAll(files);
-//									System.out.println(up_url);
-									 Set<String> ts = new HashSet<String>();//使用set方法防止List中有多个数组
+									//									System.out.println(up_url);
+									Set<String> ts = new HashSet<String>();//使用set方法防止List中有多个数组
 									ts.addAll(up_url);
 									tsx = ts;
-									List<String> list2 = new ArrayList<String> ();
+									List<String> list2 = new ArrayList<String>();
 									list2.addAll(tsx);
 									up_urlx = list2;
-								}
+									int xc = up_urlx.size();
+									System.out.println("上传成功的大小" + xc);
+									//9图片批量上传
+									for(int i=0;i<urls.size();i++)
+									{
+										System.out.println("这是添加数据进表以后的大小"+urls.size());
+										 UploadCtEntity uploadCtEntity = new UploadCtEntity();
+										uploadCtEntity.setZqda("测试");
+										uploadCtEntity.setImage_url(up_urlx);
+										list.add(uploadCtEntity);
+										BmobInsert(list);
+									}
+//								}
 
-//									for (String listf:urls)
-//									{
-//										//增强型遍历返回的urls将onSuccess获取到的数据进行回调，覆盖然后存放在up_url中
-//										up_url.add(listf);
-//									}
-//									//迭代器将onSuccess获取到的数据进行回调，覆盖存放到up_image中
-//
-//									Iterator it = files.iterator();
-//									while(it.hasNext())
-//									{
-//											up_image.add((BmobFile) urls);
-//									}
-//
-////									for(BmobFile up_imagex :files){
-////										//由于BmobFile中没有add的方法所以用
-////										BmobFile upimage = new BmobFile();
-////
-////										//方法体
-////									}
-									//do something
-								}
+								//									for (String listf:urls)
+								//									{
+								//										//增强型遍历返回的urls将onSuccess获取到的数据进行回调，覆盖然后存放在up_url中
+								//										up_url.add(listf);
+								//									}
+								//									//迭代器将onSuccess获取到的数据进行回调，覆盖存放到up_image中
+								//
+								//									Iterator it = files.iterator();
+								//									while(it.hasNext())
+								//									{
+								//											up_image.add((BmobFile) urls);
+								//									}
+								//
+								////									for(BmobFile up_imagex :files){
+								////										//由于BmobFile中没有add的方法所以用
+								////										BmobFile upimage = new BmobFile();
+								////
+								////										//方法体
+								////									}
+								//do something
+							}
 
 
 							@Override
@@ -194,72 +198,72 @@ public class Success extends Activity implements View.OnClickListener {
 							}
 						});
 						//								persons.add(uploadCtEntity);
-//						uploadCtEntity.save(new SaveListener<String>() {
-//							@Override
-//							public void done(String s, BmobException e) {
-//
-//								BmobFile.uploadBatch(arrString, new UploadBatchListener() {
-//									@Override
-//									public void onSuccess(List<BmobFile> files, List<String> urls) {
-////										List<BmobObject> persons = new ArrayList<>((Collection<? extends BmobObject>) new File(String.valueOf(files)));
-//										up_url = urls;
-//										up_image = files;
-//									/*	Set<String> set = new HashSet<>();
-//										final List<String> list1 = new ArrayList<>();
-//										for(int i=0;i<9;i++)
-//										{
-//											set.add(file.getPath());//将压缩好的九张图片封装进set
-//											set.add(urls.get(i));
-//
-//										}
-//										Iterator<String> it = set.iterator();
-//										while(it.hasNext())
-//										{
-//											list1.add(it.next());//遍历如果有重复就删掉没有重复就将图片封装进List
-//										}*/
-////										List<BmobFile> up_image = files;
-//										//声明该Collection模板类的"类型变量"可以是所有Object的子类
-//										/*UploadCtEntity uploadCtEntity = new UploadCtEntity("测试",files.get(0));
-//										uploadCtEntity.setPicturl(up_url);//图片地址
-//										uploadCtEntity.setPicture((BmobFile) up_image);//图片对象
-//										new BmobBatch().insertBatch(persons).doBatch(new QueryListListener<BatchResult>() {
-//											@Override
-//											public void done(List<BatchResult> list, BmobException e) {
-//												if (e == null)
-//												{
-//													for(int i = 0 ;i<list.size();i++)
-//													{
-//														BatchResult result = list.get(i);
-//														BmobException ex =result.getError();
-//														if(ex==null){
-//															showToast("数据更新成功");
-//														}else{
-//															showToast(i+"个更新失败"+ex.getMessage()+","+ex.getErrorCode());
-//														}
-//													}
-//												}
-//												else{
-//													showToast("数据更新失败");
-//												}
-//											}
-//										});
-//*/
-//									}
-//
-//									@Override
-//									public void onProgress(int i, int i1, int total, int i3) {
-//
-//										showToast("total" + total);//提示上传个数
-//
-//									}
-//
-//									@Override
-//									public void onError(int i, String s) {
-//
-//									}
-//								});
-//							}
-//						});
+						//						uploadCtEntity.save(new SaveListener<String>() {
+						//							@Override
+						//							public void done(String s, BmobException e) {
+						//
+						//								BmobFile.uploadBatch(arrString, new UploadBatchListener() {
+						//									@Override
+						//									public void onSuccess(List<BmobFile> files, List<String> urls) {
+						////										List<BmobObject> persons = new ArrayList<>((Collection<? extends BmobObject>) new File(String.valueOf(files)));
+						//										up_url = urls;
+						//										up_image = files;
+						//									/*	Set<String> set = new HashSet<>();
+						//										final List<String> list1 = new ArrayList<>();
+						//										for(int i=0;i<9;i++)
+						//										{
+						//											set.add(file.getPath());//将压缩好的九张图片封装进set
+						//											set.add(urls.get(i));
+						//
+						//										}
+						//										Iterator<String> it = set.iterator();
+						//										while(it.hasNext())
+						//										{
+						//											list1.add(it.next());//遍历如果有重复就删掉没有重复就将图片封装进List
+						//										}*/
+						////										List<BmobFile> up_image = files;
+						//										//声明该Collection模板类的"类型变量"可以是所有Object的子类
+						//										/*UploadCtEntity uploadCtEntity = new UploadCtEntity("测试",files.get(0));
+						//										uploadCtEntity.setPicturl(up_url);//图片地址
+						//										uploadCtEntity.setPicture((BmobFile) up_image);//图片对象
+						//										new BmobBatch().insertBatch(persons).doBatch(new QueryListListener<BatchResult>() {
+						//											@Override
+						//											public void done(List<BatchResult> list, BmobException e) {
+						//												if (e == null)
+						//												{
+						//													for(int i = 0 ;i<list.size();i++)
+						//													{
+						//														BatchResult result = list.get(i);
+						//														BmobException ex =result.getError();
+						//														if(ex==null){
+						//															showToast("数据更新成功");
+						//														}else{
+						//															showToast(i+"个更新失败"+ex.getMessage()+","+ex.getErrorCode());
+						//														}
+						//													}
+						//												}
+						//												else{
+						//													showToast("数据更新失败");
+						//												}
+						//											}
+						//										});
+						//*/
+						//									}
+						//
+						//									@Override
+						//									public void onProgress(int i, int i1, int total, int i3) {
+						//
+						//										showToast("total" + total);//提示上传个数
+						//
+						//									}
+						//
+						//									@Override
+						//									public void onError(int i, String s) {
+						//
+						//									}
+						//								});
+						//							}
+						//						});
 
 
 						//将Arraylist转化为String[]
@@ -320,28 +324,22 @@ public class Success extends Activity implements View.OnClickListener {
 		mainButton1.setOnClickListener(this);
 		mainButton2.setOnClickListener(this);
 	}
-	/** 批量插入操作
+
+	/**
+	 * 批量插入操作
 	 * insertBatch
+	 *
 	 * @return void
 	 * @throws
 	 */
-	public void BmobInsert ()
-	{
-
-		List<BmobObject> list = new ArrayList<BmobObject>();
+	public void BmobInsert(List<BmobObject> list) {
 		//需要研究一下List集合，暂时只能发送一条数据类型批量不行
-
-			UploadCtEntity uploadCtEntity = new UploadCtEntity();
-			uploadCtEntity.setZqda("测试");
-			uploadCtEntity.setImage_url(up_urlx);
-			list.add( uploadCtEntity);
 
 		new BmobBatch().insertBatch(list).doBatch(new QueryListListener<BatchResult>() {
 			@Override
 			public void done(List<BatchResult> list, BmobException e) {
-				if(e==null)
-				{System.out.println(list);
-					showToast("成功插入表"+list.size());
+				if (e == null) {
+					showToast("成功插入表" + list.size());
 				}
 			}
 		});
@@ -372,11 +370,10 @@ public class Success extends Activity implements View.OnClickListener {
 				ImageSelector.builder()
 						.useCamera(true) // 设置是否使用拍照
 						.setSingle(false)  //设置是否单选
-						.setMaxSelectCount(1) // 图片的最大选择数量，小于等于0时，不限数量。
+						.setMaxSelectCount(9) // 图片的最大选择数量，小于等于0时，不限数量。
 						.start(this, REQUEST_CODE); // 打开相册
 				break;
 			case R.id.mainButton2:
-				BmobInsert();
 				//								List<BmobObject> bmobFilesx= new ArrayList<BmobObject>();
 				//								UploadCtEntity uploadCtEntity = new UploadCtEntity();
 				//								uploadCtEntity.setZqda("测试");

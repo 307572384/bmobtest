@@ -20,14 +20,18 @@ public class UploadCtEntity extends BmobObject
 
 	private List<BmobFile> picture;//图片
 	private String         zqda;
-	private List<String>   image_url;
-	public List<String> getImage_url() {
-		return image_url;
-	}
 
 	public void setImage_url(List<String> image_url) {
 		this.image_url = image_url;
 	}
+
+	private List<String> image_url;
+
+	public List<String> getImage_url() {
+		return image_url;
+	}
+
+
 
 
 
